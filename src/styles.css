@@ -17,7 +17,7 @@ button {
 }
 .container {
   display: flex;
-  width: 60%;
+  width: 400px;
   justify-content: center;
 }
 .paper {
