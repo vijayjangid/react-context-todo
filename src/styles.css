@@ -1,12 +1,32 @@
+:root {
+  --inputBG: rgba(255, 255, 255, 0.5);
+  --bg1: #fff;
+  --bg2: #ddd;
+  --text: #000;
+  --paper: #ffec99;
+  --border: rgba(0, 0, 0, 0.2);
+  --shadow: rgba(0, 0, 0, 0.75);
+  --button: rgba;
+}
+.dark {
+  --inputBG: rgba(0, 0, 0, 0.2);
+  --bg1: #000;
+  --bg2: #333;
+  --text: #ddd;
+  --paper: #474747;
+}
 body {
   font-family: "Antic Slab", sans-serif;
   margin: 0;
   padding: 0;
-  background: #000000;
 }
 input,
 button {
   font-family: "Antic Slab", sans-serif;
+}
+button {
+  cursor: pointer;
+  padding: 0.5em 1em;
 }
 .App {
   text-align: center;
@@ -14,21 +34,25 @@ button {
   justify-content: center;
   width: 100%;
   height: 100vh;
+  background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+  color: var(--text);
 }
 .container {
   display: flex;
   width: 400px;
-  justify-content: center;
+  flex-direction: column;
+}
+.theme-toggle-container {
+  padding: 1em;
 }
 .paper {
-  margin: 1em;
   display: flex;
   width: 100%;
-  background: #ffec99;
+  background: var(--paper);
   flex-direction: column;
-  -webkit-box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 42px -19px var(--shadow);
+  -moz-box-shadow: 0px 0px 42px -19px var(--shadow);
+  box-shadow: 0px 0px 42px -19px var(--shadow);
 }
 form {
   display: flex;
@@ -48,13 +72,13 @@ form {
 }
 
 input {
+  color: var(--text);
   border: none;
   height: 2em;
   padding: 5px 10px;
   font-size: 1.2rem;
-  -webkit-box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 42px -19px rgba(0, 0, 0, 0.75);
+  background: var(--inputBG);
+  border-bottom: solid 1px var(--border);
 }
 .empty {
   opacity: 0.4;
@@ -68,11 +92,11 @@ input {
   margin: 0;
   padding: 0;
   font-size: 1.1rem;
-  max-height: 80vh;
+  max-height: 75vh;
   overflow: auto;
 }
 .list li {
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  border-bottom: solid 1px var(--border);
   padding: 0.5em;
   text-align: left;
   display: flex;
@@ -85,7 +109,7 @@ input {
   cursor: pointer;
 }
 .list li.done {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--border);
 }
 .list li.done .text {
   text-decoration: line-through;

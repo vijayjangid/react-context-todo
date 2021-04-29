@@ -30,7 +30,6 @@ const Todos = () => {
   const onClearAll = useCallback(() => {
     dispatch(clearTodos());
   }, [dispatch]);
-  console.log("todos,", todos);
   const emptyList = !todos || !todos.length;
   return (
     <div className="paper">

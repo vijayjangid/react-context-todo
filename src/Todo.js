@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 
 const Todo = React.memo(({ todo, onToggle, onRemove }) => {
-  console.log("todo rendering", todo);
   const { id, text, done } = todo;
   const created = useMemo(() => {
     const d = new Date(id);
