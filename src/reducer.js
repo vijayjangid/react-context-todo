@@ -8,7 +8,7 @@ const todosReducer = (state, action) => {
     case "add-todo": {
       const text = action.payload;
       const id = Date.now();
-      return [...state, { id, text, done: false }];
+      return [{ id, text, done: false }, ...state];
     }
     case "toggle-todo": {
       const id = action.payload;
