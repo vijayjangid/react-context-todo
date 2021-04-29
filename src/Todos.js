@@ -61,6 +61,21 @@ const Todos = () => {
           ))}
         </ul>
       </div>
+      <footer>
+        <div>
+          made with <span className="heart">&#10084;</span>
+        </div>
+        <small>
+          github:{" "}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/vijayjangid/react-context-todo"
+          >
+            @vijayjangid/react-context-todo
+          </a>
+        </small>
+      </footer>
     </div>
   );
 };
