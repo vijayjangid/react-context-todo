@@ -113,6 +113,9 @@ input {
 .list.scroll-bottom {
   box-shadow: inset 0px 10px 10px -12px var(--shadow);
 }
+.list.no-scroll {
+  box-shadow: none;
+}
 .list li {
   border-bottom: solid 1px var(--border);
   padding: 0.5em;

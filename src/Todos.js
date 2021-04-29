@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useContext, useMemo, useRef } from "react";
 import Todo from "./Todo";
 import { addTodo, toggleTodo, removeTodo, clearTodos } from "./reducer";
 import { TodosContext } from "./todosContext";
@@ -31,13 +31,18 @@ const Todos = () => {
   const onClearAll = useCallback(() => {
     dispatch(clearTodos());
   }, [dispatch]);
-  const emptyList = !todos || !todos.length;
+  // const emptyList = !todos || !todos.length;
   const listRef = useRef();
-  // const [rect] = useClientRect(listRef);
-  const { atTop, atBottom } = useScrollPosition(listRef);
-  const listClassName = `list ${
-    atTop ? "scroll-top" : atBottom ? "scroll-bottom" : ""
-  }`;
+  const { atTop, atBottom, noScrollVisible } = useScrollPosition(listRef);
+  let scrollStateClass = "";
+  if (noScrollVisible) {
+    scrollStateClass = "no-scroll";
+  } else if (atTop) {
+    scrollStateClass = "scroll-top";
+  } else if (atBottom) {
+    scrollStateClass = "scroll-bottom";
+  }
+
   return (
     <div className="paper">
       <form onSubmit={onFormSubmit}>
@@ -47,19 +52,11 @@ const Todos = () => {
         </span>
       </form>
       <div className="list-container">
-        {emptyList && <div className="empty">No items</div>}
-        {!emptyList && (
-          <ul className={listClassName} ref={listRef}>
-            {todos.map((t) => (
-              <Todo
-                key={t.id}
-                todo={t}
-                onToggle={onToggle}
-                onRemove={onRemove}
-              />
-            ))}
-          </ul>
-        )}
+        <ul className={`list ${scrollStateClass}`} ref={listRef}>
+          {todos.map((t) => (
+            <Todo key={t.id} todo={t} onToggle={onToggle} onRemove={onRemove} />
+          ))}
+        </ul>
       </div>
     </div>
   );

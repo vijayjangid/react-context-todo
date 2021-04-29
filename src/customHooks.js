@@ -21,35 +21,39 @@ const throttle = (func, delay = 100) => {
   };
 };
 
-export const useScrollPosition = (ref) => {
-  const [scrollPosition, setPosition] = useState(() => ({
-    scrollTop: 0,
-    scrollHeight: 0,
-    atTop: true,
-    atBottom: false
+function updatePosition(ref, setPosition) {
+  const { scrollTop, scrollHeight, clientHeight } = ref.current;
+  const atTop = scrollTop === 0;
+  const atBottom = Math.abs(scrollHeight - scrollTop - clientHeight) <= 1;
+  const noScrollVisible = atTop && atBottom;
+  setPosition(() => ({
+    scrollTop,
+    scrollHeight,
+    atTop,
+    atBottom,
+    noScrollVisible
   }));
+}
+
+export const useScrollPosition = (ref) => {
+  const [scrollPosition, setPosition] = useState(() => ({}));
+
+  useLayoutEffect(() => {
+    updatePosition(ref, setPosition);
+  }, [ref, setPosition]);
+
   useLayoutEffect(() => {
     const { current } = ref;
-    function updatePosition() {
-      const { scrollTop, scrollHeight, clientHeight } = current;
-      const atTop = scrollTop === 0;
-      const atBottom = scrollHeight - scrollTop === clientHeight;
-      setPosition(() => ({
-        scrollTop,
-        scrollHeight,
-        atTop,
-        atBottom
-      }));
+    function handleScroll() {
+      updatePosition(ref, setPosition);
     }
     ReactDOM.findDOMNode(current).addEventListener(
       "scroll",
-      throttle(updatePosition)
+      throttle(handleScroll)
     );
     return () =>
-      ReactDOM.findDOMNode(current).removeEventListener(
-        "scroll",
-        updatePosition
-      );
-  }, [ref]);
+      ReactDOM.findDOMNode(current).removeEventListener("scroll", handleScroll);
+  }, [ref, setPosition]);
+
   return scrollPosition;
 };
