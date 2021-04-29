@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import Todo from "./Todo";
 import { addTodo, toggleTodo, removeTodo, clearTodos } from "./reducer";
 import { TodosContext } from "./todosContext";
