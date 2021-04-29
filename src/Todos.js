@@ -29,7 +29,10 @@ const Todos = () => {
   );
 
   const onClearAll = useCallback(() => {
-    dispatch(clearTodos());
+    const result = window.confirm(
+      "This will remove all enteries. Are you sure?"
+    );
+    result && dispatch(clearTodos());
   }, [dispatch]);
   // const emptyList = !todos || !todos.length;
   const listRef = useRef();
@@ -48,7 +51,7 @@ const Todos = () => {
       <form onSubmit={onFormSubmit}>
         <input ref={inputRef} type="text" />
         <span className="clear" onClick={onClearAll}>
-          [Clear All]
+          Clear All
         </span>
       </form>
       <div className="list-container">

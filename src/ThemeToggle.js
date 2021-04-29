@@ -7,10 +7,11 @@ const ThemeToggle = () => {
     setTheme((theme) => !theme);
   }, [setTheme]);
 
-  const theme = isDarkTheme ? "Dark" : "Light";
+  // const theme = isDarkTheme ? "Dark" : "Light";
+  const themeSymbol = isDarkTheme ? <>&#9728;</> : <>&#9790;</>;
   return (
     <div className="theme-toggle-container">
-      <button onClick={onToggle}>Theme: {theme}</button>
+      <button onClick={onToggle}>{themeSymbol}</button>
     </div>
   );
 };
